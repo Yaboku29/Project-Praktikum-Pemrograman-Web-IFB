@@ -6,7 +6,7 @@ Anggota :
 
 ---
 
-## Better BIMA.upnvyk
+## BIMA.upnvyk
 Jadi pada project kali ini, kami ingin membuat web yang mengambil konsep dan fungsi yang ada di BIMA. Yang membuatnya berbeda adalah pemolesan dan kemungkinan ada fitur tambahan, jika ada dan sempat.
 
 ---
