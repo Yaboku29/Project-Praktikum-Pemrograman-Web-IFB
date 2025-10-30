@@ -10,6 +10,8 @@
     <p>
         halo saya, Ananda Rizky, dan Rizky Rama <br>
         ingin membuat BIMA versi lebih bagus
+        <br>
+        testing
     </p>
 </body>
 </html>
