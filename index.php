@@ -24,6 +24,9 @@ $nim=123240070;
         .content, #judulKonten {
             transition: margin-left 0.35s ease;
         }
+        .content{
+            max-height: 250px;
+        }
 
         .shifted {
             margin-left: 200px;
@@ -43,25 +46,35 @@ $nim=123240070;
 <body>
     <!-- Tombol buka sidebar -->
     <div class="d-flex align-items-center justify-content-between p-3">
-        <div>
+        <div id="judulKonten">
             <button class="btn btn-primary m-3" data-bs-toggle="offcanvas" data-bs-target="#sidebar">
                 Menu
             </button>
         </div>
 
-        <div id="judulKonten">
+        <div>
             <h5 class="m-0" ><?=$nama?></h5>
             <h6><?=$status?></h6>
         </div>
     </div>
 
     <!-- Content -->
-    <div class="p-4 content" id="content">
-        <div class="align-items-center">
-            <h1>Content Area</h1>
-            <p>Ini akan bergeser dengan pas ketika sidebar terbuka.</p>
+    <div class="content" id="content">
+    <!-- <div class="">
+        <h1>Content Area</h1>
+        <p>Ini akan bergeser dengan pas ketika sidebar terbuka.</p>
+    </div> -->
+        <div class="p-4 bg-light text-center py-4 border-bottom border-top" >
+            <h3 class="fw-bold"><?=$nama?> <span class="text-muted">(<?=$nim?>)</span></h3>
+            <div class="text-muted">
+                Fakultas Teknik Industri | Teknik Informatika | Informatika
+            </div>
+            <div class="mt-2">
+                <small><i class="bi bi-person"></i> Simon Pulung Nugroho, S.Kom., M.Cs.</small>
+            </div>
         </div>
-    </div>
+    </div> 
+    
 
     <!-- Sidebar -->
     <div class="offcanvas offcanvas-start text-bg-dark" id="sidebar">
@@ -88,6 +101,11 @@ $nim=123240070;
             <ul class="nav nav-pills flex-column mb-auto">
                 <h6>Dosen</h6>
                 <li><a href="#" class="nav-link text-white">Jadwal Dosen</a></li>
+            </ul>
+            <br>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <h6></h6>
+                <li><a href="logout.php" class="nav-link text-white">Logout</a></li>
             </ul>
         </div>
     </div>
