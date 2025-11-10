@@ -3,7 +3,7 @@
 $host = "localhost";
 $username =  "root";
 $password = "";
-$database = "web_if_b";
+$database = "database_bima_kw";
 
 $db = new mysqli($host, $username, $password, $database);
 
