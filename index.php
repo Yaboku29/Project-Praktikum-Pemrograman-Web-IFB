@@ -18,20 +18,19 @@ if(!isset($_SESSION['username'])){
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
 
     <style>
-        .content {
-            transition: margin-left 0.3s;
+        .content, #judulKonten {
+            transition: margin-left 0.35s ease;
         }
 
-        .content.shifted {
-            margin-left: 250px;
-            /* Lebar sidebar */
+        .shifted {
+            margin-left: 200px;
         }
 
-        #sidebar.is-open {
-            position: fixed !important;
-            width: 250px;
+        #sidebar {
+            /*position: fixed !important;*/
+            --bs-offcanvas-width: 200px;
             height: 100vh;
-            transform: none !important;
+            /*transform: none !important;*/
             /* hilangkan animasi offcanvas */
             visibility: visible !important;
         }
@@ -39,12 +38,6 @@ if(!isset($_SESSION['username'])){
 </head>
 
 <body>
-
-    <div>
-        
-    </div>
-    
-
     <!-- Tombol buka sidebar -->
     <div class="d-flex align-items-center p-3">
         <div>
@@ -60,10 +53,6 @@ if(!isset($_SESSION['username'])){
         <div style="width: 48px;"></div>
     </div>
 
-
-    <!-- <button class="btn btn-primary m-3" data-bs-toggle="offcanvas" data-bs-target="#sidebar">
-        Menu
-    </button> -->
     <!-- Content -->
     <div class="p-4 content" id="content">
         <h1>Content Area</h1>
@@ -73,16 +62,28 @@ if(!isset($_SESSION['username'])){
     <!-- Sidebar -->
     <div class="offcanvas offcanvas-start text-bg-dark" id="sidebar">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title">Sidebar</h5>
+            <h5 class="offcanvas-title">
+                <img src="asset/favicon-32x32.png" alt="bima32x32">BIMA</h5>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
         </div>
         <div class="offcanvas-body">
+            
             <ul class="nav nav-pills flex-column mb-auto">
-                <li><a href="#" class="nav-link text-white">Home</a></li>
+                <h6>Navigasi</h6>
+                <li><a href="#" class="nav-link text-white">Dashboard</a></li>
+            </ul>
+            <br>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <h6>Perkuliahan</h6>    
                 <li><a href="#" class="nav-link text-white">Nilai</a></li>
                 <li><a href="#" class="nav-link text-white">Transkrip Nilai</a></li>
-                <li><a href="#" class="nav-link text-white">Daftar dosen</a></li>
-                <li><a href="#" class="nav-link text-white">jadwal Kuliah</a></li>
+                <li><a href="daftar" class="nav-link text-white">Daftar dosen</a></li>
+                <li><a href="jadwalKuliah.php?" class="nav-link text-white">jadwal Kuliah</a></li>
+            </ul>
+            <br>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <h6>Dosen</h6>
+                <li><a href="#" class="nav-link text-white">Jadwal Dosen</a></li>
             </ul>
         </div>
     </div>
@@ -99,18 +100,16 @@ if(!isset($_SESSION['username'])){
             var sidebar = document.getElementById('sidebar');
             var content = document.getElementById('content');
             var judul   = document.getElementById('judulKonten')
-            sidebar.addEventListener('shown.bs.offcanvas', function() {
-                sidebar.classList.add('is-open');
-                content.style.marginLeft = "250px";
-                judul.style.marginLeft = "250px";
-
+            sidebar.addEventListener('show.bs.offcanvas', function () {
+                content.classList.add('shifted');
+                judul.classList.add('shifted');
             });
 
-            sidebar.addEventListener('hidden.bs.offcanvas', function() {
-                sidebar.classList.remove('is-open');
-                content.style.marginLeft = "0";
-                judul.style.marginLeft = "0";
+            sidebar.addEventListener('hide.bs.offcanvas', function () {
+                content.classList.remove('shifted');
+                judul.classList.remove('shifted');
             });
+
         });
     </script>
 
