@@ -10,6 +10,7 @@ if(!isset($_SESSION['username'])){
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,29 +21,54 @@ if(!isset($_SESSION['username'])){
         .content {
             transition: margin-left 0.3s;
         }
-        .content.shifted {
-            margin-left: 250px; /* Lebar sidebar */
-        }
-        #sidebar.is-open {
-        position: fixed !important;
-        width: 250px;
-        height: 100vh;
-        transform: none !important; /* hilangkan animasi offcanvas */
-        visibility: visible !important;
-     }   
-    
 
+        .content.shifted {
+            margin-left: 250px;
+            /* Lebar sidebar */
+        }
+
+        #sidebar.is-open {
+            position: fixed !important;
+            width: 250px;
+            height: 100vh;
+            transform: none !important;
+            /* hilangkan animasi offcanvas */
+            visibility: visible !important;
+        }
     </style>
 </head>
 
 <body>
 
-    <h1>BIMA KW</h1>
+    <div>
+        
+    </div>
+    
 
     <!-- Tombol buka sidebar -->
-    <button class="btn btn-primary m-3" data-bs-toggle="offcanvas" data-bs-target="#sidebar">
+    <div class="d-flex align-items-center p-3">
+        <div>
+            <button class="btn btn-primary m-3" data-bs-toggle="offcanvas" data-bs-target="#sidebar">
+                Menu
+            </button>
+        </div>
+
+        <div class="flex-grow-1 text-center" id="judulKonten">
+            <h1 class="m-0" >BIMA KW</h1>
+        </div>
+
+        <div style="width: 48px;"></div>
+    </div>
+
+
+    <!-- <button class="btn btn-primary m-3" data-bs-toggle="offcanvas" data-bs-target="#sidebar">
         Menu
-    </button>
+    </button> -->
+    <!-- Content -->
+    <div class="p-4 content" id="content">
+        <h1>Content Area</h1>
+        <p>Ini akan bergeser dengan pas ketika sidebar terbuka.</p>
+    </div>
 
     <!-- Sidebar -->
     <div class="offcanvas offcanvas-start text-bg-dark" id="sidebar">
@@ -60,12 +86,8 @@ if(!isset($_SESSION['username'])){
             </ul>
         </div>
     </div>
-     <div class=""></div>
-    <!-- Content -->
-    <div class="p-4 content" id="content">
-    <h1>Content Area</h1>
-    <p>Ini akan bergeser dengan pas ketika sidebar terbuka.</p>
-</div>
+    <div class=""></div>
+    
 
 
     <!-- Bootstrap JS -->
@@ -73,22 +95,26 @@ if(!isset($_SESSION['username'])){
 
     <!-- Script untuk menggeser content -->
     <script>
-document.addEventListener('DOMContentLoaded', function () {
-    var sidebar = document.getElementById('sidebar');
-    var content = document.getElementById('content');
+        document.addEventListener('DOMContentLoaded', function() {
+            var sidebar = document.getElementById('sidebar');
+            var content = document.getElementById('content');
+            var judul   = document.getElementById('judulKonten')
+            sidebar.addEventListener('shown.bs.offcanvas', function() {
+                sidebar.classList.add('is-open');
+                content.style.marginLeft = "250px";
+                judul.style.marginLeft = "250px";
 
-    sidebar.addEventListener('shown.bs.offcanvas', function () {
-        sidebar.classList.add('is-open');
-        content.style.marginLeft = "250px";
-    });
+            });
 
-    sidebar.addEventListener('hidden.bs.offcanvas', function () {
-        sidebar.classList.remove('is-open');
-        content.style.marginLeft = "0";
-    });
-});
-</script>
+            sidebar.addEventListener('hidden.bs.offcanvas', function() {
+                sidebar.classList.remove('is-open');
+                content.style.marginLeft = "0";
+                judul.style.marginLeft = "0";
+            });
+        });
+    </script>
 
 
 </body>
+
 </html>
