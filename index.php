@@ -1,10 +1,13 @@
 <?php
 
-session_start();
-if(!isset($_SESSION['username'])){
-    header("Location: login.php");
-    exit();
-}
+// session_start();
+// if(!isset($_SESSION['username'])){
+//     header("Location: login.php");
+//     exit();
+// }
+$nama="Ananda Rizky Setya Nugroho";
+$status="Mahasiswa";
+$nim=123240070;
 
 ?>
 
@@ -39,24 +42,25 @@ if(!isset($_SESSION['username'])){
 
 <body>
     <!-- Tombol buka sidebar -->
-    <div class="d-flex align-items-center p-3">
+    <div class="d-flex align-items-center justify-content-between p-3">
         <div>
             <button class="btn btn-primary m-3" data-bs-toggle="offcanvas" data-bs-target="#sidebar">
                 Menu
             </button>
         </div>
 
-        <div class="flex-grow-1 text-center" id="judulKonten">
-            <h1 class="m-0" >BIMA KW</h1>
+        <div id="judulKonten">
+            <h5 class="m-0" ><?=$nama?></h5>
+            <h6><?=$status?></h6>
         </div>
-
-        <div style="width: 48px;"></div>
     </div>
 
     <!-- Content -->
     <div class="p-4 content" id="content">
-        <h1>Content Area</h1>
-        <p>Ini akan bergeser dengan pas ketika sidebar terbuka.</p>
+        <div class="align-items-center">
+            <h1>Content Area</h1>
+            <p>Ini akan bergeser dengan pas ketika sidebar terbuka.</p>
+        </div>
     </div>
 
     <!-- Sidebar -->
