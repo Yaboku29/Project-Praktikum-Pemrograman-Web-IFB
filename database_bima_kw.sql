@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 03, 2025 at 04:30 PM
+-- Generation Time: Nov 10, 2025 at 06:59 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -51,6 +51,19 @@ CREATE TABLE `krs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `krs_details`
+--
+
+CREATE TABLE `krs_details` (
+  `id_krs_detail` int(11) NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `id_krs` int(11) NOT NULL,
+  `id_kelas` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `matkul`
 --
 
@@ -59,6 +72,20 @@ CREATE TABLE `matkul` (
   `kodeMatkul` varchar(8) NOT NULL,
   `sks` int(11) NOT NULL,
   `namaMatkul` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `penilaian`
+--
+
+CREATE TABLE `penilaian` (
+  `id_nilai` int(11) NOT NULL,
+  `nilai` float NOT NULL,
+  `bobot` float NOT NULL,
+  `jenis` enum('Tugas','UTS','UAS','Kuis') NOT NULL,
+  `id_krs_detail` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -106,10 +133,22 @@ ALTER TABLE `krs`
   ADD PRIMARY KEY (`idKRS`);
 
 --
+-- Indexes for table `krs_details`
+--
+ALTER TABLE `krs_details`
+  ADD PRIMARY KEY (`id_krs_detail`);
+
+--
 -- Indexes for table `matkul`
 --
 ALTER TABLE `matkul`
   ADD PRIMARY KEY (`idMatkul`);
+
+--
+-- Indexes for table `penilaian`
+--
+ALTER TABLE `penilaian`
+  ADD PRIMARY KEY (`id_nilai`);
 
 --
 -- Indexes for table `ruangan`
@@ -140,10 +179,22 @@ ALTER TABLE `krs`
   MODIFY `idKRS` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `krs_details`
+--
+ALTER TABLE `krs_details`
+  MODIFY `id_krs_detail` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `matkul`
 --
 ALTER TABLE `matkul`
   MODIFY `idMatkul` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `penilaian`
+--
+ALTER TABLE `penilaian`
+  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ruangan`
