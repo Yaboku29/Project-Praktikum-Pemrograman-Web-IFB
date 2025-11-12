@@ -85,7 +85,7 @@ $nim = 123240070;
         <h1>Content Area</h1>
         <p>Ini akan bergeser dengan pas ketika sidebar terbuka.</p>
     </div> -->
-        <div class="p-4 bg-light text-center py-4 border-bottom border-top">
+        <!-- <div class="p-4 bg-light text-center py-4 border-bottom border-top">
             <h3 class="fw-bold"><?= $nama ?> <span class="text-muted">(<?= $nim ?>)</span></h3>
             <div class="text-muted">
                 Fakultas Teknik Industri | Teknik Informatika | Informatika
@@ -94,7 +94,7 @@ $nim = 123240070;
                 <small><i class="bi bi-person"></i>
                     <a href="" style="color: inherit; text-decoration: none;">Simon Pulung Nugroho, S.Kom., M.Cs.</a> </small>
             </div>
-        </div>
+        </div> -->
         <br>
         <div class="container">
             <div class="row align-items-center">
