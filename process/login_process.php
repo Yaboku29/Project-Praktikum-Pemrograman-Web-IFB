@@ -5,7 +5,7 @@ session_start(); // harus di paling atas sebelum output apapun
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // ambil input dengan sanitasi ringan
-    $email = isset($_POST["email"]) ? trim($_POST["email"]) : "";
+    $email = isset($_POST["NIM"]) ? trim($_POST["NIM"]) : "";
     $password = isset($_POST["password"]) ? $_POST["password"] : "";
 
     if (empty($email) || empty($password)) {
@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // siapkan statement — ambil password, username, dan role
-    $stmt = $db->prepare("SELECT password, username, role FROM users WHERE email = ?");
+    $stmt = $db->prepare("SELECT username, password, role FROM users WHERE username = ?");
     if (!$stmt) {
         // debug ringan jika prepare gagal
         error_log("Prepare failed: " . $db->error);
