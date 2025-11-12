@@ -17,7 +17,7 @@ if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "admin") {
 <body>
     <h2>Form Pendaftaran Mahasiswa</h2>
 
-    <form action="register_process.php" method="POST">
+    <form action="process/register_process.php" method="POST">
         <label>Username:</label><br>
         <input type="text" name="username" required><br><br>
 

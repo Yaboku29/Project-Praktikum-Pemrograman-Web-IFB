@@ -128,7 +128,7 @@ $nim = 12345;
             <br>
             <ul class="nav nav-pills flex-column mb-auto">
                 <h6>Kemahasiswaan</h6>
-                <li><a href="registeruser.php" class="nav-link nav-link:hover">Daftarkan Mahasiswa</a></li>
+                <li><a href="register.php" class="nav-link nav-link:hover">Daftarkan Mahasiswa</a></li>
                 <li><a href="#" class="nav-link nav-link:hover">Transkrip Nilai</a></li>
                 <li><a href="jadwalKuliah.php?" class="nav-link nav-link:hover"><i class="bi bi-calendar-event"></i> Jadwal Kuliah</a></li>
                 
@@ -142,7 +142,7 @@ $nim = 12345;
             <br>
             <ul class="nav nav-pills flex-column mb-auto">
                 <h6></h6>
-                <li><a href="logout.php" class="nav-link nav-link:hover">Logout</a></li>
+                <li><a href="../logout.php" class="nav-link nav-link:hover">Logout</a></li>
             </ul>
         </div>
     </div>
