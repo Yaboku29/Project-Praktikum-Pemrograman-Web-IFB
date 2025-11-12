@@ -21,6 +21,7 @@ if (isset($_SESSION['error'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <style>
         body {
             min-height: 100vh;
@@ -51,6 +52,31 @@ if (isset($_SESSION['error'])) {
     </style>
 </head>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const pwdInput = document.getElementById('passwordInput');
+        const toggleBtn = document.getElementById('togglePasswordBtn');
+        const toggleIcon = document.getElementById('toggleIcon');
+
+        toggleBtn.addEventListener('click', function () {
+            const isHidden = pwdInput.type === 'password';
+            pwdInput.type = isHidden ? 'text' : 'password';
+
+            // update icon & accessibility label
+            toggleIcon.classList.toggle('bi-eye', !isHidden);
+            toggleIcon.classList.toggle('bi-eye-slash', isHidden);
+
+            toggleBtn.setAttribute('aria-pressed', isHidden ? 'true' : 'false');
+            toggleBtn.setAttribute('aria-label', isHidden ? 'Sembunyikan password' : 'Tampilkan password');
+
+            // keep focus on input after toggle (UX)
+            pwdInput.focus();
+        });
+
+        // optional: toggle with keyboard (Space/Enter when button focused handled automatically)
+    });
+</script>
+
 <body>
     <div class="d-flex justify-content-center align-items-center" style="min-height:100vh;">
         <div class="login-card">
@@ -69,9 +95,15 @@ if (isset($_SESSION['error'])) {
                     <input type="text" name="NIM" required class="w-100">
                 </div>
                 <div class="mb-3 text-start">
-                    <label for="">Password</label><br>
-                    <input type="text" name="password" required class="w-100">
+                    <label for="passwordInput">Password</label>
+                    <div class="input-group">
+                        <input id="passwordInput" type="password" name="password" required class="form-control" autocomplete="current-password" aria-describedby="togglePasswordBtn">
+                        <button id="togglePasswordBtn" class="btn btn-outline-secondary" type="button" aria-pressed="false" aria-label="Tampilkan password">
+                            <i id="toggleIcon" class="bi bi-eye"></i>
+                        </button>
+                    </div>
                 </div>
+
                 <button type="submit" class="btn btn-dark w-100"> Log in </button>
             </form>
         </div>
