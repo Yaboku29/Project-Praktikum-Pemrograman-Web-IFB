@@ -9,8 +9,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = isset($_POST["password"]) ? $_POST["password"] : "";
 
     if (empty($email) || empty($password)) {
-        echo "Email atau password tidak boleh kosong.";
-        exit;
+        $_SESSION['error'] = "Username atau password tidak boleh kosong.";
+        header("Location: ../login.php");
+        exit();
     }
 
     // siapkan statement — ambil password, username, dan role
@@ -47,10 +48,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
             }
         } else {
-            echo "Password salah.";
+            $_SESSION['error'] = "Password salah.";
+            header("Location: ../login.php");
+            exit();
         }
     } else {
-        echo "Akun dengan email tersebut tidak ditemukan.";
+        $_SESSION['error'] = "Username tidak ditemukan.";
+        header("Location: ../login.php");
+        exit();
     }
 
     $stmt->close();

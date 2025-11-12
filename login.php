@@ -5,9 +5,13 @@ if (isset($_SESSION['username'])) {
     header("Location: index.php");
     exit();
 }
-
+// simpan pesan error (jika ada) dan hapus setelah ditampilkan
+$error_message = '';
+if (isset($_SESSION['error'])) {
+    $error_message = $_SESSION['error'];
+    unset($_SESSION['error']); // hapus agar tidak muncul terus
+}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -53,6 +57,12 @@ if (isset($_SESSION['username'])) {
             <img src="asset/bima.png" alt="bima" class="logo-circle "><br>
             <h3 class="text-center">BIMA</h3>
             <h5 class="text-center">Sistem Informasi Akademik</h5>
+            <!-- ✅ pesan error tampil di sini -->
+            <?php if (!empty($error_message)): ?>
+                <div class="alert alert-danger mt-3 text-center">
+                    <?= htmlspecialchars($error_message) ?>
+                </div>
+            <?php endif; ?>
             <form action="process/login_process.php" method="POST" class="mt-4">
                 <div class="mb-3 text-start">
                     <label for="">Username</label><br>
