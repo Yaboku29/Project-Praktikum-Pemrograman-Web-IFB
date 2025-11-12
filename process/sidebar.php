@@ -1,6 +1,8 @@
 <?php
-$current_page = basename($_SERVER['PHP_SELF']); // contoh hasil: dashboard.php
+$current_page = basename($_SERVER['PHP_SELF']); 
+//$base_path = dirname($_SERVER['PHP_SELF']); 
 ?>
+
 
 <div class="offcanvas offcanvas-start text-bg-dark" data-bs-backdrop="false" id="sidebar">
     <div class="offcanvas-header">
