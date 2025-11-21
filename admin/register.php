@@ -1,13 +1,17 @@
 <?php
 
-// session_start();
-// if(!isset($_SESSION['username'])){
-//     header("Location: login.php");
-//     exit();
-// }
-$nama = "Admin UPN";
-$status = "Pengurus BIMA";
-$nim = 12345;
+session_start();
+if(!isset($_SESSION['username'])){
+    header("Location: login.php");
+    exit();
+}
+
+$username = $_SESSION['username'] ?? "Guest";
+$role = $_SESSION['role'] ?? "Tidak diketahui";
+
+// $nama = "Admin UPN";
+// $status = "Pengurus BIMA";
+// $nim = 12345;
 
 ?>
 
@@ -73,8 +77,8 @@ $nim = 12345;
         </div>
 
         <div>
-            <h5 class="m-0"><?= $nama ?></h5>
-            <h6><?= $status ?></h6>
+            <h5 class="m-0"><?= $username ?></h5>
+            <h6><?= $role ?></h6>
         </div>
     </div>
 
@@ -82,29 +86,48 @@ $nim = 12345;
     <div class="content" id="content">
         <div class="p-4 bg-light text-center py-4 border-bottom border-top">
             <h2>Form Pendaftaran Mahasiswa</h2>
+                            <?php
+            
+            if (isset($_SESSION['error'])) {
+                echo '<div class="alert alert-danger">'.$_SESSION['error'].'</div>';
+                unset($_SESSION['error']);
+            }
+
+            if (isset($_GET['status']) && $_GET['status'] == 'success') {
+                echo '<div class="alert alert-success">Pendaftaran berhasil!</div>';
+            }
+
+            if (isset($_GET['status']) && $_GET['status'] == 'failed') {
+                echo '<div class="alert alert-danger">Pendaftaran gagal!</div>';
+            }
+            ?>
 
 
             <form class="row g-3" action="process/register_process.php" method="POST">
-                <div class="col-md-12">
-                    <label for="nama" class="form-label">NIM</label>
-                    <input type="text" class="form-control" id="nama" name="NIM">
-                </div>
-                <div class="col-md-12">
-                    <label for="inputPassword" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="inputPassword" name="password">
-                </div>
-                <div class="col-12">
-                    <label for="inputNama" class="form-label">Nama</label>
-                    <input type="text" class="form-control" id="inputNama" placeholder="Agus Herlambang" name="nama">
-                </div>
-                <div class="col-md-12">
-                    <label for="inputemail" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="inputemail">
-                </div>
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Sign in</button>
-                </div>
-            </form>
+    <div class="col-md-12">
+        <label for="username" class="form-label">NIM (Username)</label>
+        <input type="text" class="form-control" id="username" name="username">
+    </div>
+
+    <div class="col-md-12">
+        <label for="inputPassword" class="form-label">Password</label>
+        <input type="password" class="form-control" id="inputPassword" name="password">
+    </div>
+
+    <div class="col-12">
+        <label for="inputNama" class="form-label">Nama</label>
+        <input type="text" class="form-control" id="inputNama" placeholder="Agus Herlambang" name="nama">
+    </div>
+
+    <div class="col-md-12">
+        <label for="inputemail" class="form-label">Email</label>
+        <input type="email" class="form-control" id="inputemail" name="email">
+    </div>
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Sign in</button>
+    </div>
+</form>
 
         </div>
     </div>

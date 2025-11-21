@@ -15,6 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = trim($_POST["email"]);
     $password = $_POST["password"];
 
+
     if (empty($username) || empty($nama) || empty($email) || empty($password)) {
         $_SESSION['error'] = "Semua Kolom Harus Diisi!";
         header("Location: ../register.php");
