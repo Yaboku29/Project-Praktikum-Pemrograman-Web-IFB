@@ -5,9 +5,15 @@
 //     header("Location: login.php");
 //     exit();
 // }
-$nama = "Ananda Rizky Setya Nugroho";
+session_start();
+require "config/db.php";
+
+$username=$_SESSION['username'];
+// $nama = ;
 $status = "Mahasiswa";
-$nim = 123240070;
+//$nim = 123240070;
+
+
 
 ?>
 
