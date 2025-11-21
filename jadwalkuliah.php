@@ -1,13 +1,70 @@
 <?php
 
-// session_start();
+session_start();
+require 'config/db.php';
 // if(!isset($_SESSION['username'])){
 //     header("Location: login.php");
 //     exit();
 // }
-$nama = "Ananda Rizky Setya Nugroho";
+//$nim=$_SESSION['username'];
+$nim='123240087';
+$sql_user = "SELECT idUser,nama 
+             FROM users 
+             WHERE username = ? 
+             LIMIT 1";
+
+$stmt_user = $db->prepare($sql_user);
+$stmt_user->bind_param("s", $nim);
+$stmt_user->execute();
+$res_user = $stmt_user->get_result();
+
+if ($res_user->num_rows === 0) {
+    die("User tidak ditemukan!");
+}
+
+$user = $res_user->fetch_assoc();
+$id_user = $user['idUser'];
+$nama=$user['nama'];
+
+//ambil semester
+$sql_sem = "SELECT semester 
+            FROM krs
+            WHERE idUser = ?
+            ORDER BY semester DESC
+            LIMIT 1";
+
+$stmt_sem = $db->prepare($sql_sem);
+$stmt_sem->bind_param("i", $id_user);
+$stmt_sem->execute();
+$s = $stmt_sem->get_result();
+
+if ($s->num_rows == 0) die("Belum ada KRS!");
+
+$semester_sekarang = $s->fetch_assoc()['semester'];
+
+//ambil jadwal
+$sql_jadwal = "SELECT 
+                kls.nama_kelas,
+                kls.sks,
+                kls.hari,
+                kls.jam_mulai,
+                kls.jam_selesai,
+                kls.ruangan 
+                FROM krs AS k 
+                JOIN krs_details AS kd ON kd.id_krs = k.idKRS 
+                JOIN kelas AS kls ON kls.id = kd.id_kelas 
+                WHERE k.idUser = ? AND k.semester = kd.semester AND k.semester=? 
+                ORDER BY FIELD(kls.hari, 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat')";
+
+$stmt_jadwal = $db->prepare($sql_jadwal);
+$stmt_jadwal->bind_param("ii", $id_user, $semester_sekarang);
+$stmt_jadwal->execute();
+$jadwal = $stmt_jadwal->get_result();
+
+
+// $nama = "Ananda Rizky Setya Nugroho";
 $status = "Mahasiswa";
-$nim = 123240070;
+// $nim = 123240070;
 
 ?>
 
@@ -109,6 +166,34 @@ $nim = 123240070;
                     <h4>Pengumuman</h4>
                 </div>
             </div>
+            <h3>Jadwal Kuliah Semester <?= $semester_sekarang ?></h3>
+
+            <table class="table table-bordered mt-3">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Mata Kuliah</th>
+                        <th>Hari</th>
+                        <th>Mulai</th>
+                        <th>Selesai</th>
+                        <th>Ruang</th>
+                        <th>SKS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while($row = $jadwal->fetch_assoc()): ?>
+                    <tr>
+                        
+                        <td><?= $row['nama_kelas'] ?></td>
+                        <td><?= $row['hari'] ?></td>
+                        <td><?= $row['jam_mulai'] ?></td>
+                        <td><?= $row['jam_selesai'] ?></td>
+                        <td><?= $row['ruangan'] ?></td>
+                        <td><?= $row['sks'] ?></td>
+                    </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+
         </div>
     </div>
 
