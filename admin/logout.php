@@ -2,5 +2,5 @@
 
 session_start();
 session_destroy();
-header("Location: ../Project-Praktikum-Pemrograman-Web-IFB/login.php");
+header("Location: login.php");
 exit();

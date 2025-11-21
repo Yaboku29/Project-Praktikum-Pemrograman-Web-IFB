@@ -1,13 +1,17 @@
 <?php
 
-// session_start();
-// if(!isset($_SESSION['username'])){
-//     header("Location: login.php");
-//     exit();
-// }
-$nama = "Admin UPN";
-$status = "Pengurus BIMA";
-$nim = 12345;
+session_start();
+if(!isset($_SESSION['username'])){
+    header("Location: login.php");
+    exit();
+}
+
+$username = $_SESSION['username'] ?? "Guest";
+$role = $_SESSION['role'] ?? "Tidak diketahui";
+
+// $nama = "Admin UPN";
+// $status = "Pengurus BIMA";
+// $nim = 12345;
 
 ?>
 
@@ -73,8 +77,8 @@ $nim = 12345;
         </div>
 
         <div>
-            <h5 class="m-0"><?= $nama ?></h5>
-            <h6><?= $status ?></h6>
+            <h5 class="m-0"><?= $username ?></h5>
+            <h6><?= $role ?></h6>
         </div>
     </div>
 
@@ -85,7 +89,7 @@ $nim = 12345;
         <p>Ini akan bergeser dengan pas ketika sidebar terbuka.</p>
     </div> -->
         <div class="p-4 bg-light text-center py-4 border-bottom border-top">
-            <h3 class="fw-bold"><?= $nama ?> <span class="text-muted">(<?= $nim ?>)</span></h3>
+            <h3 class="fw-bold"><?= $username ?> <span class="text-muted">(<?= $username ?>)</span></h3>
             <div class="text-muted">
                 <!-- Fakultas Teknik Industri | Teknik Informatika | Informatika -->
             </div>
@@ -123,7 +127,7 @@ $nim = 12345;
 
             <ul class="nav nav-pills flex-column mb-auto">
                 <h6>Navigasi</h6>
-                <li><a href="#" class="nav-link active"><i class="bi bi-columns-gap"></i> Dashboard</a></li>
+                <li><a href="index.php" class="nav-link active"><i class="bi bi-columns-gap"></i> Dashboard</a></li>
             </ul>
             <br>
             <ul class="nav nav-pills flex-column mb-auto">
