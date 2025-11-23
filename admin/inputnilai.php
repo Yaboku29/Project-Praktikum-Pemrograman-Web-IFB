@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-if(!isset($_SESSION['username'])){
+if (!isset($_SESSION['username'])) {
     header("Location: ../login.php");
     exit();
 }
@@ -86,10 +86,10 @@ $role = $_SESSION['role'] ?? "Tidak diketahui";
     <div class="content" id="content">
         <div class="p-4 bg-light text-center py-4 border-bottom border-top">
             <h2>Form Pengisian Nilai</h2>
-                            <?php
-            
+            <?php
+
             if (isset($_SESSION['error'])) {
-                echo '<div class="alert alert-danger">'.$_SESSION['error'].'</div>';
+                echo '<div class="alert alert-danger">' . $_SESSION['error'] . '</div>';
                 unset($_SESSION['error']);
             }
 
@@ -103,42 +103,55 @@ $role = $_SESSION['role'] ?? "Tidak diketahui";
             ?>
 
 
-            <form class="row g-3" action="process/register_process.php" method="POST">
-    <div class="col-md-12">
-        <label for="username" class="form-label">NIM (Username)</label>
-        <input type="text" class="form-control" id="username" name="username">
-    </div>
+            <form class="row g-3" action="process/nilai_process.php" method="POST">
 
-    <div class="col-md-12">
-        <label for="inputPassword" class="form-label">Password</label>
-        <input type="password" class="form-control" id="inputPassword" name="password">
-    </div>
+                <div class="col-md-12">
+                    <label for="mataKuliah" class="form-label">Mata Kuliah</label>
+                    <input type="text" class="form-control" id="mataKuliah" name="mataKuliah" required>
+                </div>
 
-    <div class="col-12">
-        <label for="inputNama" class="form-label">Nama</label>
-        <input type="text" class="form-control" id="inputNama" placeholder="Agus Herlambang" name="nama">
-    </div>
+                <div class="col-md-12">
+                    <label for="nilai" class="form-label">Nilai</label>
+                    <input type="number" class="form-control" id="nilai" name="nilai" required>
+                </div>
 
-    <div class="col-md-12">
-        <label for="inputemail" class="form-label">Email</label>
-        <input type="email" class="form-control" id="inputemail" name="email">
-    </div>
+                <div class="col-md-12">
+                    <label for="bobot" class="form-label">Bobot</label>
+                    <input type="number" class="form-control" id="bobot" name="bobot" required>
+                </div>
 
-    <div class="col-12">
-        <button type="submit" class="btn btn-primary">Sign in</button>
-    </div>
-</form>
+                <div class="col-md-12">
+                    <label for="jenis" class="form-label">Jenis Penilaian</label>
+                    <select id="jenis" name="jenis" class="form-select" required>
+                        <option value="Tugas">Tugas</option>
+                        <option value="UTS">UTS</option>
+                        <option value="UAS">UAS</option>
+                        <option value="Kuis">Kuis</option>
+                    </select>
+                </div>
+
+                <div class="col-md-12">
+                    <label for="idUser" class="form-label">ID Mahasiswa</label>
+                    <input type="number" name="idUser" class="form-control" placeholder="ID User">
+
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+
+            </form>
+
 
         </div>
     </div>
 
 
     <!-- Sidebar -->
-    <div class="offcanvas offcanvas-start text-bg-dark" id="sidebar">
+<div class="offcanvas offcanvas-start text-bg-dark" id="sidebar">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title">
-                <img src="../asset/favicon-32x32.png" alt="bima32x32">
-                <h5>BIMA</h5>
+                <img src="../asset/favicon-32x32.png" alt="bima32x32"> <h5>BIMA</h5>
             </h5>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
         </div>
@@ -151,10 +164,10 @@ $role = $_SESSION['role'] ?? "Tidak diketahui";
             <br>
             <ul class="nav nav-pills flex-column mb-auto">
                 <h6>Kemahasiswaan</h6>
-                <li><a href="registeruser.php" class="nav-link nav-link:hover">Daftarkan Mahasiswa</a></li>
-                <li><a href="#" class="nav-link nav-link:hover">Transkrip Nilai</a></li>
+                <li><a href="register.php" class="nav-link nav-link:hover">Daftarkan Mahasiswa</a></li>
+                <li><a href="inputNilai.php" class="nav-link nav-link:hover">Input Nilai</a></li>
                 <li><a href="jadwalKuliah.php?" class="nav-link nav-link:hover"><i class="bi bi-calendar-event"></i> Jadwal Kuliah</a></li>
-
+                
             </ul>
             <br>
             <ul class="nav nav-pills flex-column mb-auto">
@@ -165,11 +178,10 @@ $role = $_SESSION['role'] ?? "Tidak diketahui";
             <br>
             <ul class="nav nav-pills flex-column mb-auto">
                 <h6></h6>
-                <li><a href="logout.php" class="nav-link nav-link:hover">Logout</a></li>
+                <li><a href="../logout.php" class="nav-link nav-link:hover">Logout</a></li>
             </ul>
         </div>
-    </div>
-    <div class=""></div>
+    </div>    <div class=""></div>
 
 
 

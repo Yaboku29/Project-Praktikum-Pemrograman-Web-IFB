@@ -137,8 +137,7 @@ $role = $_SESSION['role'] ?? "Tidak diketahui";
     <div class="offcanvas offcanvas-start text-bg-dark" id="sidebar">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title">
-                <img src="../asset/favicon-32x32.png" alt="bima32x32">
-                <h5>BIMA</h5>
+                <img src="../asset/favicon-32x32.png" alt="bima32x32"> <h5>BIMA</h5>
             </h5>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
         </div>
@@ -151,10 +150,10 @@ $role = $_SESSION['role'] ?? "Tidak diketahui";
             <br>
             <ul class="nav nav-pills flex-column mb-auto">
                 <h6>Kemahasiswaan</h6>
-                <li><a href="registeruser.php" class="nav-link nav-link:hover">Daftarkan Mahasiswa</a></li>
-                <li><a href="#" class="nav-link nav-link:hover">Transkrip Nilai</a></li>
+                <li><a href="register.php" class="nav-link nav-link:hover">Daftarkan Mahasiswa</a></li>
+                <li><a href="inputNilai.php" class="nav-link nav-link:hover">Input Nilai</a></li>
                 <li><a href="jadwalKuliah.php?" class="nav-link nav-link:hover"><i class="bi bi-calendar-event"></i> Jadwal Kuliah</a></li>
-
+                
             </ul>
             <br>
             <ul class="nav nav-pills flex-column mb-auto">
@@ -165,7 +164,7 @@ $role = $_SESSION['role'] ?? "Tidak diketahui";
             <br>
             <ul class="nav nav-pills flex-column mb-auto">
                 <h6></h6>
-                <li><a href="logout.php" class="nav-link nav-link:hover">Logout</a></li>
+                <li><a href="../logout.php" class="nav-link nav-link:hover">Logout</a></li>
             </ul>
         </div>
     </div>
