@@ -1,13 +1,15 @@
 <?php
 
-// session_start();
-// if(!isset($_SESSION['username'])){
-//     header("Location: login.php");
-//     exit();
-// }
-$nama = "Ananda Rizky Setya Nugroho";
-$status = "Mahasiswa";
-$nim = 123240070;
+session_start();
+unset($_SESSION['krs_temp']);
+unset($_SESSION['krs_initialized']);
+if(!isset($_SESSION['username'])){
+    header("Location: login.php");
+    exit();
+}
+$nim = $_SESSION['username'];
+$status = $_SESSION['role'];
+$nama = $_SESSION['name'];
 
 ?>
 

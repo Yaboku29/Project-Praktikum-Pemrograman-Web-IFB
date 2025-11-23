@@ -1,13 +1,19 @@
 <?php
 
 session_start();
+unset($_SESSION['krs_temp']);
+unset($_SESSION['krs_initialized']);
 require 'config/db.php';
-// if(!isset($_SESSION['username'])){
-//     header("Location: login.php");
-//     exit();
-// }
-//$nim=$_SESSION['username'];
-$nim='123240087';
+//session_start();
+if(!isset($_SESSION['username'])){
+    header("Location: login.php");
+    exit();
+}
+$nim = $_SESSION['username'];
+$status = $_SESSION['role'];
+$nama = $_SESSION['name'];
+$status = "Mahasiswa";
+//$nim='123240087';
 $sql_user = "SELECT idUser,nama 
              FROM users 
              WHERE username = ? 
@@ -24,7 +30,7 @@ if ($res_user->num_rows === 0) {
 
 $user = $res_user->fetch_assoc();
 $id_user = $user['idUser'];
-$nama=$user['nama'];
+//$nama=$user['nama'];
 
 //ambil semester
 $sql_sem = "SELECT semester 
@@ -40,7 +46,24 @@ $s = $stmt_sem->get_result();
 
 if ($s->num_rows == 0) die("Belum ada KRS!");
 
-$semester_sekarang = $s->fetch_assoc()['semester'];
+
+
+// semester default = semester terakhir
+$row_sem = $s->fetch_assoc();   // fetch sekali saja
+$semester_default = $row_sem['semester'];
+// kalau URL ada ?semester=..
+$semester_sekarang = isset($_GET['semester']) 
+                     ? intval($_GET['semester']) 
+                     : $semester_default;
+$sql_all_sem = "SELECT DISTINCT semester 
+                FROM krs 
+                WHERE idUser = ?
+                ORDER BY semester ASC";
+
+$stmt_all_sem = $db->prepare($sql_all_sem);
+$stmt_all_sem->bind_param("i", $id_user);
+$stmt_all_sem->execute();
+$list_sem = $stmt_all_sem->get_result();
 
 //ambil jadwal
 $sql_jadwal = "SELECT 
@@ -53,17 +76,24 @@ $sql_jadwal = "SELECT
                 FROM krs AS k 
                 JOIN krs_details AS kd ON kd.id_krs = k.idKRS 
                 JOIN kelas AS kls ON kls.id = kd.id_kelas 
-                WHERE k.idUser = ? AND k.semester = kd.semester AND k.semester=? 
+                WHERE k.idUser = ? AND k.semester=? 
                 ORDER BY FIELD(kls.hari, 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat')";
 
 $stmt_jadwal = $db->prepare($sql_jadwal);
 $stmt_jadwal->bind_param("ii", $id_user, $semester_sekarang);
 $stmt_jadwal->execute();
 $jadwal = $stmt_jadwal->get_result();
+$jadwal_data = [];
+$total_sks = 0;
+
+while ($row = $jadwal->fetch_assoc()) {
+    $jadwal_data[] = $row;
+    $total_sks += $row['sks'];
+}
+
 
 
 // $nama = "Ananda Rizky Setya Nugroho";
-$status = "Mahasiswa";
 // $nim = 123240070;
 
 ?>
@@ -156,14 +186,27 @@ $status = "Mahasiswa";
         <div class="container">
             <div class="row align-items-center">
                 <div class="col border-bottom">
-                    <h4>Informasi</h4>
-
+                    <h3 class="mt-2">
+                        <strong>Total SKS Semester <?= $semester_sekarang ?>:</strong> <?= $total_sks ?>
+                    </h3>
                 </div>
                 <!-- <div class="col">
                 One of three columns
                 </div> -->
-                <div class="col border-bottom">
-                    <h4>Pengumuman</h4>
+                <div class="col border-bottom text-end">
+                    <!-- <h4>Pengumuman</h4> -->
+                     <form method="GET" class="mb-3">
+                        <label class="fw-bold">Pilih Semester:</label>
+                        <select name="semester" class="form-select w-auto d-inline" onchange="this.form.submit()">
+                            <?php foreach ($list_sem as $sem): ?>
+                                <option value="<?= $sem['semester'] ?>" 
+                                    <?= ($sem['semester'] == $semester_sekarang ? 'selected' : '') ?>>
+                                    Semester <?= $sem['semester'] ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </form>
+
                 </div>
             </div>
             <h3>Jadwal Kuliah Semester <?= $semester_sekarang ?></h3>
@@ -180,7 +223,7 @@ $status = "Mahasiswa";
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while($row = $jadwal->fetch_assoc()): ?>
+                    <?php foreach ($jadwal_data as $row): ?>
                     <tr>
                         
                         <td><?= $row['nama_kelas'] ?></td>
@@ -190,7 +233,7 @@ $status = "Mahasiswa";
                         <td><?= $row['ruangan'] ?></td>
                         <td><?= $row['sks'] ?></td>
                     </tr>
-                    <?php endwhile; ?>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
 

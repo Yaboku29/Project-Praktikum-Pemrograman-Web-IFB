@@ -6,13 +6,21 @@
 //     exit();
 // }
 session_start();
+unset($_SESSION['krs_temp']);
+unset($_SESSION['krs_initialized']);
 require "config/db.php";
+if(!isset($_SESSION['username'])){
+    header("Location: login.php");
+    exit();
+}
+$nim = $_SESSION['username'];
+$status = $_SESSION['role'];
+$nama = $_SESSION['name'];
+$idUSer=$_SESSION['id'];
 
-$username=$_SESSION['username'];
-// $nama = ;
-$status = "Mahasiswa";
-//$nim = 123240070;
 
+$sql = "SELECT * FROM kelas ORDER BY nama_kelas ASC";
+$result = $db->query($sql);
 
 
 ?>

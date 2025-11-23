@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // siapkan statement — ambil password, username, dan role
-    $stmt = $db->prepare("SELECT username, password, role FROM users WHERE username = ?");
+    $stmt = $db->prepare("SELECT * FROM users WHERE username = ?");
     if (!$stmt) {
         error_log("Prepare failed: " . $db->error);
         echo "Terjadi kesalahan server.";
@@ -32,8 +32,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // verifikasi password
         if (password_verify($password, $row['password'])) {
             session_regenerate_id(true);
-            $_SESSION["username"] = $row["username"];
-            $_SESSION["role"] = $row["role"];
+            $_SESSION["username"]   = $row["username"];
+            $_SESSION["role"]       = $row["role"];
+            $_SESSION["name"]       = $row["nama"];
+            $_SESSION['id']         = $row['idUser'];
 
             // redirect berdasarkan role
             if ($row["role"] === "admin") {

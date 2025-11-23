@@ -83,7 +83,7 @@ if (isset($_SESSION['error'])) {
             <img src="asset/bima.png" alt="bima" class="logo-circle "><br>
             <h3 class="text-center">BIMA</h3>
             <h5 class="text-center">Sistem Informasi Akademik</h5>
-            <!-- ✅ pesan error tampil di sini -->
+            <!--  pesan error tampil di sini -->
             <?php if (!empty($error_message)): ?>
                 <div class="alert alert-danger mt-3 text-center">
                     <?= htmlspecialchars($error_message) ?>

@@ -46,6 +46,12 @@ $current_page = basename($_SERVER['PHP_SELF']);
                    <i class="bi bi-journal-check"></i> Transkrip Nilai
                 </a>
             </li>
+            <li>
+                <a href="krs.php"
+                   class="nav-link <?= ($current_page == 'krs.php') ? 'active' : '' ?>">
+                   <i class="bi bi-card-checklist"></i> Pengajuan KRS
+                </a>
+            </li>
         </ul>
 
         <br>

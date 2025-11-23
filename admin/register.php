@@ -67,6 +67,31 @@ $role = $_SESSION['role'] ?? "Tidak diketahui";
     </style>
 </head>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const pwdInput = document.getElementById('inputPassword');
+        const toggleBtn = document.getElementById('togglePasswordBtn');
+        const toggleIcon = document.getElementById('toggleIcon');
+
+        toggleBtn.addEventListener('click', function () {
+            const isHidden = pwdInput.type === 'password';
+            pwdInput.type = isHidden ? 'text' : 'password';
+
+            // update icon & accessibility label
+            toggleIcon.classList.toggle('bi-eye', !isHidden);
+            toggleIcon.classList.toggle('bi-eye-slash', isHidden);
+
+            toggleBtn.setAttribute('aria-pressed', isHidden ? 'true' : 'false');
+            toggleBtn.setAttribute('aria-label', isHidden ? 'Sembunyikan password' : 'Tampilkan password');
+
+            // keep focus on input after toggle (UX)
+            pwdInput.focus();
+        });
+
+        // optional: toggle with keyboard (Space/Enter when button focused handled automatically)
+    });
+</script>
+
 <body>
     <!-- Tombol buka sidebar -->
     <div class="d-flex align-items-center justify-content-between p-3">
@@ -104,30 +129,37 @@ $role = $_SESSION['role'] ?? "Tidak diketahui";
 
 
             <form class="row g-3" action="process/register_process.php" method="POST">
-    <div class="col-md-12">
-        <label for="username" class="form-label">NIM (Username)</label>
-        <input type="text" class="form-control" id="username" name="username">
-    </div>
+                <div class="col-md-12">
+                    <label for="username" class="form-label">NIM (Username)</label>
+                    <input type="text" class="form-control" id="username" name="username">
+                </div>
 
-    <div class="col-md-12">
-        <label for="inputPassword" class="form-label">Password</label>
-        <input type="password" class="form-control" id="inputPassword" name="password">
-    </div>
+                <div class="col-md-12">
+                    <!-- <label for="inputPassword" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="inputPassword" name="password"> -->
+                    <label for="passwordInput">Password</label>
+                    <div class="input-group">
+                        <input id="inputPassword" type="password" name="password" required class="form-control" aria-describedby="togglePasswordBtn">
+                        <button id="togglePasswordBtn" class="btn btn-outline-secondary" type="button" aria-pressed="false" aria-label="Tampilkan password">
+                            <i id="toggleIcon" class="bi bi-eye"></i>
+                        </button>
+                    </div>
+                </div>
 
-    <div class="col-12">
-        <label for="inputNama" class="form-label">Nama</label>
-        <input type="text" class="form-control" id="inputNama" placeholder="Agus Herlambang" name="nama">
-    </div>
+                <div class="col-12">
+                    <label for="inputNama" class="form-label">Nama</label>
+                    <input type="text" class="form-control" id="inputNama" placeholder="Agus Herlambang" name="nama">
+                </div>
 
-    <div class="col-md-12">
-        <label for="inputemail" class="form-label">Email</label>
-        <input type="email" class="form-control" id="inputemail" name="email">
-    </div>
+                <div class="col-md-12">
+                    <label for="inputemail" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="inputemail" name="email">
+                </div>
 
-    <div class="col-12">
-        <button type="submit" class="btn btn-primary">Sign in</button>
-    </div>
-</form>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </form>
 
         </div>
     </div>

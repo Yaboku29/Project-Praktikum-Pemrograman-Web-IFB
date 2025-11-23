@@ -6,8 +6,9 @@ if(!isset($_SESSION['username'])){
     exit();
 }
 
-$username = $_SESSION['username'] ?? "Guest";
+$nim = $_SESSION['username'] ?? "Guest";
 $role = $_SESSION['role'] ?? "Tidak diketahui";
+$nama = $_SESSION['name'];
 
 // $nama = "Admin UPN";
 // $status = "Pengurus BIMA";
@@ -77,7 +78,7 @@ $role = $_SESSION['role'] ?? "Tidak diketahui";
         </div>
 
         <div>
-            <h5 class="m-0"><?= $username ?></h5>
+            <h5 class="m-0"><?= $nama ?></h5>
             <h6><?= $role ?></h6>
         </div>
     </div>
@@ -89,7 +90,7 @@ $role = $_SESSION['role'] ?? "Tidak diketahui";
         <p>Ini akan bergeser dengan pas ketika sidebar terbuka.</p>
     </div> -->
         <div class="p-4 bg-light text-center py-4 border-bottom border-top">
-            <h3 class="fw-bold"><?= $username ?> <span class="text-muted">(<?= $username ?>)</span></h3>
+            <h3 class="fw-bold"><?= $nama ?> <span class="text-muted">(<?= $nim ?>)</span></h3>
             <div class="text-muted">
                 <!-- Fakultas Teknik Industri | Teknik Informatika | Informatika -->
             </div>
