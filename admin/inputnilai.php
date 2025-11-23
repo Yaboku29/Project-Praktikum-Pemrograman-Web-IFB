@@ -85,7 +85,7 @@ $role = $_SESSION['role'] ?? "Tidak diketahui";
     <!-- Content -->
     <div class="content" id="content">
         <div class="p-4 bg-light text-center py-4 border-bottom border-top">
-            <h2>Form Pendaftaran Mahasiswa</h2>
+            <h2>Form Pengisian Nilai</h2>
                             <?php
             
             if (isset($_SESSION['error'])) {

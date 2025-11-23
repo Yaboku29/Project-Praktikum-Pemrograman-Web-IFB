@@ -133,7 +133,7 @@ $role = $_SESSION['role'] ?? "Tidak diketahui";
             <ul class="nav nav-pills flex-column mb-auto">
                 <h6>Kemahasiswaan</h6>
                 <li><a href="register.php" class="nav-link nav-link:hover">Daftarkan Mahasiswa</a></li>
-                <li><a href="#" class="nav-link nav-link:hover">Transkrip Nilai</a></li>
+                <li><a href="inputNilai.php" class="nav-link nav-link:hover">Input Nilai</a></li>
                 <li><a href="jadwalKuliah.php?" class="nav-link nav-link:hover"><i class="bi bi-calendar-event"></i> Jadwal Kuliah</a></li>
                 
             </ul>
