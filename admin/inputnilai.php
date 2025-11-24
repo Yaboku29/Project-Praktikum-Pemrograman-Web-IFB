@@ -162,7 +162,7 @@ $role = $_SESSION['role'] ?? "Tidak diketahui";
 
 
     <!-- Sidebar -->
-<div class="offcanvas offcanvas-start text-bg-dark" id="sidebar">
+<!-- <div class="offcanvas offcanvas-start text-bg-dark" id="sidebar">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title">
                 <img src="../asset/favicon-32x32.png" alt="bima32x32">
@@ -196,7 +196,10 @@ $role = $_SESSION['role'] ?? "Tidak diketahui";
                 <li><a href="../logout.php" class="nav-link nav-link:hover">Logout</a></li>
             </ul>
         </div>
-    </div>    <div class=""></div>
+     </div>     -->
+    
+     <?php include 'process/sidebar.php'; ?>
+     <div class=""></div> 
 
 
 
