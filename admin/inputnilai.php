@@ -72,7 +72,7 @@ $role = $_SESSION['role'] ?? "Tidak diketahui";
     <div class="d-flex align-items-center justify-content-between p-3">
         <div id="judulKonten">
             <button class="btn btn-dark m-3 text-white" data-bs-toggle="offcanvas" data-bs-target="#sidebar">
-                Menu
+                <i class="bi bi-layout-sidebar"></i>
             </button>
         </div>
 
@@ -148,7 +148,7 @@ $role = $_SESSION['role'] ?? "Tidak diketahui";
 
 
     <!-- Sidebar -->
-<div class="offcanvas offcanvas-start text-bg-dark" id="sidebar">
+<!-- <div class="offcanvas offcanvas-start text-bg-dark" id="sidebar">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title">
                 <img src="../asset/favicon-32x32.png" alt="bima32x32"> <h5>BIMA</h5>
@@ -181,7 +181,10 @@ $role = $_SESSION['role'] ?? "Tidak diketahui";
                 <li><a href="../logout.php" class="nav-link nav-link:hover">Logout</a></li>
             </ul>
         </div>
-    </div>    <div class=""></div>
+     </div>     -->
+    
+     <?php include 'process/sidebar.php'; ?>
+     <div class=""></div> 
 
 
 
