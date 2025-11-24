@@ -105,23 +105,34 @@ $role = $_SESSION['role'] ?? "Tidak diketahui";
 
             <form class="row g-3" action="process/nilai_process.php" method="POST">
 
+                <!-- Pilih Mahasiswa -->
                 <div class="col-md-12">
-                    <label for="mataKuliah" class="form-label">Mata Kuliah</label>
-                    <input type="text" class="form-control" id="mataKuliah" name="mataKuliah" required>
+                    <label for="idUser" class="form-label">Pilih Mahasiswa</label>
+                    <select name="idUser" id="idUser" class="form-select" required>
+                        <option value="">-- Pilih Mahasiswa --</option>
+
+                        <?php
+                        include "../config/db.php";
+                        $query = mysqli_query($db, "SELECT idUser, username, nama FROM users WHERE role='mahasiswa'");
+
+                        while ($m = mysqli_fetch_assoc($query)) {
+                            echo "<option value='{$m['idUser']}'>{$m['nama']} (NIM: {$m['username']})</option>";
+                        }
+                        ?>
+                    </select>
                 </div>
 
+                <!-- Pilih Mata Kuliah dari KRS -->
                 <div class="col-md-12">
-                    <label for="nilai" class="form-label">Nilai</label>
-                    <input type="number" class="form-control" id="nilai" name="nilai" required>
+                    <label class="form-label">Mata Kuliah yang Diambil</label>
+                    <select name="id_krs_detail" id="id_krs_detail" class="form-select" required>
+                        <option value="">Pilih mahasiswa dulu</option>
+                    </select>
                 </div>
 
+                <!-- Jenis Penilaian -->
                 <div class="col-md-12">
-                    <label for="bobot" class="form-label">Bobot</label>
-                    <input type="number" class="form-control" id="bobot" name="bobot" required>
-                </div>
-
-                <div class="col-md-12">
-                    <label for="jenis" class="form-label">Jenis Penilaian</label>
+                    <label class="form-label">Jenis Penilaian</label>
                     <select id="jenis" name="jenis" class="form-select" required>
                         <option value="Tugas">Tugas</option>
                         <option value="UTS">UTS</option>
@@ -130,28 +141,32 @@ $role = $_SESSION['role'] ?? "Tidak diketahui";
                     </select>
                 </div>
 
+                <!-- Input Nilai -->
                 <div class="col-md-12">
-                    <label for="idUser" class="form-label">ID Mahasiswa</label>
-                    <input type="number" name="idUser" class="form-control" placeholder="ID User">
+                    <label class="form-label">Nilai</label>
+                    <input type="number" name="nilai" class="form-control" required>
+                </div>
 
+                <!-- Input Bobot -->
+                <div class="col-md-12">
+                    <label class="form-label">Bobot (misal: 0.3 untuk 30%)</label>
+                    <input type="number" step="0.01" name="bobot" class="form-control" required>
                 </div>
 
                 <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="submit" class="btn btn-primary">Simpan Nilai</button>
                 </div>
-
             </form>
-
-
         </div>
     </div>
 
 
     <!-- Sidebar -->
-<div class="offcanvas offcanvas-start text-bg-dark" id="sidebar">
+    <div class="offcanvas offcanvas-start text-bg-dark" id="sidebar">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title">
-                <img src="../asset/favicon-32x32.png" alt="bima32x32"> <h5>BIMA</h5>
+                <img src="../asset/favicon-32x32.png" alt="bima32x32">
+                <h5>BIMA</h5>
             </h5>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
         </div>
@@ -167,7 +182,7 @@ $role = $_SESSION['role'] ?? "Tidak diketahui";
                 <li><a href="register.php" class="nav-link nav-link:hover">Daftarkan Mahasiswa</a></li>
                 <li><a href="inputNilai.php" class="nav-link nav-link:hover">Input Nilai</a></li>
                 <li><a href="jadwalKuliah.php?" class="nav-link nav-link:hover"><i class="bi bi-calendar-event"></i> Jadwal Kuliah</a></li>
-                
+
             </ul>
             <br>
             <ul class="nav nav-pills flex-column mb-auto">
@@ -181,7 +196,8 @@ $role = $_SESSION['role'] ?? "Tidak diketahui";
                 <li><a href="../logout.php" class="nav-link nav-link:hover">Logout</a></li>
             </ul>
         </div>
-    </div>    <div class=""></div>
+    </div>
+    <div class=""></div>
 
 
 
@@ -189,6 +205,31 @@ $role = $_SESSION['role'] ?? "Tidak diketahui";
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Script untuk menggeser content -->
+
+    <script>
+        // Saat mahasiswa dipilih, ambil daftar kelasnya
+        document.getElementById('idUser').addEventListener('change', function() {
+            let idUser = this.value;
+
+            fetch('process/ambil_kelas.php?idUser=' + idUser)
+                .then(res => res.json())
+                .then(data => {
+                    let selectKelas = document.getElementById('id_krs_detail');
+                    selectKelas.innerHTML = "";
+
+                    if (data.length === 0) {
+                        selectKelas.innerHTML = `<option value="">Mahasiswa belum mengambil kelas</option>`;
+                        return;
+                    }
+
+                    data.forEach(item => {
+                        selectKelas.innerHTML += `<option value="${item.id_krs_detail}">
+                    ${item.nama_kelas}
+                </option>`;
+                    });
+                });
+        });
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var sidebar = document.getElementById('sidebar');
